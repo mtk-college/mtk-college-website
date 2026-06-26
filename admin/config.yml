@@ -1,8 +1,9 @@
 backend:
   name: github
-  repo: ВАШ-АККАУНТ/mtk-college-website   # замяніце на сапраўдны рэпазіторый
+  repo: mtk-college/mtk-college-website
   branch: main
-  base_url: https://api.netlify.com       # пры выкарыстанні OAuth-провайдара Decap; гл. нататку ў канцы файла
+  base_url: https://mtk-college-website.pages.dev
+  auth_endpoint: api/auth
 
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
@@ -196,20 +197,30 @@ collections:
 # НАТАТКІ ПА НАЛАДЦЫ (не частка канфігурацыі Decap CMS)
 # ============================================================
 #
-# 1. backend.repo — увесці сапраўдны "уладальнік/назва-рэпазіторыя" пасля
-#    стварэння рэпазіторыя на GitHub.
+# 1. backend.repo і base_url ужо запоўнены сапраўднымі значэннямі
+#    (mtk-college/mtk-college-website, mtk-college-website.pages.dev).
+#    Калі дамен зменіцца (напр. на mtk-college.by), трэба абнавіць base_url.
 #
-# 2. Decap CMS з GitHub backend патрабуе OAuth-провайдар для ўвахода.
-#    Самы просты бясплатны варыянт — выкарыстаць гатовы OAuth-провайдар
-#    (напр. невялікую Cloudflare Worker-функцыю або готовы сэрвіс).
-#    Гэта АДЗІНАЕ месца ў праекце, дзе сапраўды трэба Cloudflare Worker —
-#    і ён бясплатны ў межах Workers Free plan.
+# 2. OAuth для ўвахода ў CMS праз GitHub рэалізаваны праз свае ўласныя
+#    Cloudflare Pages Functions: functions/api/auth.js і
+#    functions/api/callback.js. Для іх працы патрэбна:
+#    а) стварыць GitHub OAuth App (GitHub → Settings → Developer settings
+#       → OAuth Apps → New OAuth App), з Homepage URL і Authorization
+#       callback URL роўна "https://mtk-college-website.pages.dev/api/callback"
+#    б) скапіяваць Client ID і Client Secret у Cloudflare Pages →
+#       Settings → Environment variables як GITHUB_OAUTH_CLIENT_ID і
+#       GITHUB_OAUTH_CLIENT_SECRET
 #
-# 3. Ужо існуючыя markdown-файлы з гэтай гутаркі (мтк-аб-каледжы.md,
-#    мтк-навучанне.md, мтк-абітурыентам.md, мтк-навіны.md) трэба будзе
-#    разбіць на палі гэтай канфігурацыі — тэкст ужо гатовы, патрэбна
-#    толькі перанесці яго ў адпаведныя файлы content/pages/*.md.
+# 3. Старонка ўвахода ў CMS: admin/index.html (ужо створана).
+#    Адкрываецца па адрасе /admin/ на сайце.
 #
-# 4. Радок "static/images/uploads" — стандартны шлях для статычных
-#    генератараў сайту (Eleventy, Hugo і т.п.). Калі будзе выбраны іншы
-#    генератар, шлях можа адрознівацца.
+# 4. Ужо існуючыя markdown-файлы з гэтай гутаркі (мтк-аб-каледжы.md,
+#    мтк-навучанне.md, мтк-абітурыентам.md, мтк-навіны.md) ужо перанесены
+#    у content/pages/*.md — глядзіце архіў mtk-cms-content.tar.gz.
+#
+# 5. ВАЖНА: бягучыя HTML-старонкі сайта (index.html, about.html і г.д.)
+#    пакуль НЕ генеруюцца аўтаматычна з гэтых markdown-файлаў — гэта
+#    асобная задача (патрэбны генератар статычных старонак). Да таго часу
+#    змены праз CMS будуць захоўвацца ў рэпазіторыі, але не з'явяцца
+#    самі на сайце без дадатковай налады.
+
