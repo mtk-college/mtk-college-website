@@ -1,0 +1,215 @@
+backend:
+  name: github
+  repo: ВАШ-АККАУНТ/mtk-college-website   # замяніце на сапраўдны рэпазіторый
+  branch: main
+  base_url: https://api.netlify.com       # пры выкарыстанні OAuth-провайдара Decap; гл. нататку ў канцы файла
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+locale: "ru"
+
+site_url: https://mtk-college.by
+display_url: https://mtk-college.by
+
+collections:
+
+  # ============================================================
+  # 1. СТАТЫЧНЫЯ СТАРОНКІ (singleton-файлы, рэдагуюцца як форма)
+  # ============================================================
+
+  - name: "pages"
+    label: "Старонкі сайта"
+    files:
+
+      - name: "about"
+        label: "Аб каледжы"
+        file: "content/pages/about.md"
+        fields:
+          - { label: "Тэкст місіі", name: "mission_text", widget: "markdown" }
+          - { label: "Тэкст гісторыі", name: "history_text", widget: "markdown" }
+          - label: "Цэннасці (3 блокі)"
+            name: "values"
+            widget: "list"
+            min: 3
+            max: 3
+            fields:
+              - { label: "Загаловак", name: "title", widget: "string" }
+              - { label: "Тэкст", name: "text", widget: "text" }
+
+      - name: "programs"
+        label: "Навучанне"
+        file: "content/pages/programs.md"
+        fields:
+          - { label: "Уступны тэкст", name: "intro_text", widget: "markdown" }
+          - label: "Агульныя прадметы (для ўсіх груп)"
+            name: "common_subjects"
+            widget: "list"
+            field: { label: "Назва прадмета", name: "subject", widget: "string" }
+          - label: "Профільныя прадметы (залежаць ад групы)"
+            name: "profile_subjects"
+            widget: "list"
+            fields:
+              - { label: "Назва прадмета", name: "subject", widget: "string" }
+              - { label: "Група", name: "group", widget: "string", hint: "напр. 'Група II — Катэхетыка'" }
+          - label: "Групы навучання (звычайна 6)"
+            name: "groups"
+            widget: "list"
+            fields:
+              - { label: "Нумар і назва", name: "name", widget: "string", hint: "напр. 'Група I — Тэалогія'" }
+              - { label: "Апісанне", name: "description", widget: "text" }
+
+      - name: "admissions"
+        label: "Абітурыентам"
+        file: "content/pages/admissions.md"
+        fields:
+          - { label: "Уступны тэкст", name: "intro_text", widget: "markdown" }
+          - label: "Крокі паступлення"
+            name: "steps"
+            widget: "list"
+            field: { label: "Крок", name: "step", widget: "string" }
+          - label: "Дакументы для паступлення"
+            name: "documents"
+            widget: "list"
+            field: { label: "Дакумент", name: "item", widget: "string" }
+          - { label: "Апісанне ўступнага экзамену", name: "exam_info", widget: "markdown" }
+          - { label: "Нататка пра тэрміны", name: "timing_note", widget: "text", required: false }
+          - { label: "Спасылка на онлайн-рэгістрацыю (бягучы год)", name: "registration_url", widget: "string", required: false, hint: "Абнаўляецца штогод. Канкрэтныя даты набору публікуюцца ў Навінах, не тут." }
+
+      - name: "contacts"
+        label: "Кантакты"
+        file: "content/pages/contacts.md"
+        fields:
+          - { label: "Адрас", name: "address", widget: "string" }
+          - { label: "Тэлефон", name: "phone", widget: "string" }
+          - { label: "E-mail", name: "email", widget: "string" }
+          - { label: "Шырата (для карты)", name: "map_lat", widget: "number", value_type: "float" }
+          - { label: "Даўгата (для карты)", name: "map_lng", widget: "number", value_type: "float" }
+
+  # ============================================================
+  # 2. ВЫКЛАДЧЫКІ (адзін файл — адзін выкладчык)
+  # ============================================================
+
+  - name: "teachers"
+    label: "Выкладчыкі"
+    folder: "content/teachers"
+    create: true
+    identifier_field: "display_name"
+    summary: "{{display_name}} — {{fields.subjects}}"
+    fields:
+      - { label: "Імя з тытулам", name: "display_name", widget: "string", hint: "напр. 'кс. д-р Яўген Вінтоў'" }
+      - label: "Прадметы"
+        name: "subjects"
+        widget: "list"
+        field: { label: "Прадмет", name: "subject", widget: "string" }
+      - { label: "Фота", name: "photo", widget: "image", required: false, hint: "Квадратнае фота, мінімум 300×300px. Без фота паказваецца заглушка." }
+      - { label: "Парадак сартавання", name: "order", widget: "number", required: false, default: 0 }
+
+  # ============================================================
+  # 3. НАВІНЫ (адкрыты раздзел)
+  # ============================================================
+
+  - name: "news"
+    label: "Навіны"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} — {{title}}"
+    fields:
+      - { label: "Дата публікацыі", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Загаловак", name: "title", widget: "string" }
+      - { label: "Тэкст", name: "body", widget: "markdown" }
+      - { label: "Фота", name: "photo", widget: "image", required: false }
+
+  # ============================================================
+  # 4. ЗАКРЫТЫ РАЗДЗЕЛ "СТУДЭНТАМ"
+  # ============================================================
+
+  - name: "schedule"
+    label: "Расклад заняткаў"
+    folder: "content/students/schedule"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}"
+    identifier_field: "date"
+    summary: "{{date}} — {{fields.event_title}}"
+    fields:
+      - { label: "Дата", name: "date", widget: "date", format: "YYYY-MM-DD", hint: "Можна змяняць пры пераносе занятку на іншую суботу." }
+      - label: "Тып дня"
+        name: "type"
+        widget: "select"
+        options: [{ label: "Звычайны дзень заняткаў", value: "regular" }, { label: "Адметная падзея", value: "event" }]
+        default: "regular"
+
+      # --- поля для звычайнага дня ---
+      - { label: "Імша (час + хто служыць)", name: "celebrant", widget: "string", required: false, hint: "Напр. '08:15–08:50 Імша — цэлебруе кс. ...'. Толькі для звычайнага дня." }
+      - label: "Курсы і прадметы (толькі для звычайнага дня)"
+        name: "courses"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Курс", name: "course", widget: "select", options: ["I курс", "II курс", "III курс"] }
+          - { label: "1. 09:00–10:30", name: "slot1", widget: "string", required: false }
+          - { label: "2. 10:45–12:15", name: "slot2", widget: "string", required: false }
+          - { label: "3. 12:30–14:00", name: "slot3", widget: "string", required: false }
+          - { label: "4. 14:15–15:45", name: "slot4", widget: "string", required: false }
+          - { label: "5. 16:00–17:30", name: "slot5", widget: "string", required: false }
+
+      # --- поля для адметнай падзеі ---
+      - { label: "Назва падзеі (толькі для падзеі)", name: "event_title", widget: "string", required: false }
+      - { label: "Час падзеі (свабодны фармат, толькі для падзеі)", name: "event_time", widget: "string", required: false, hint: "напр. '11:00–13:00' або 'удакладн.'" }
+      - { label: "Апісанне падзеі", name: "event_description", widget: "text", required: false }
+      - { label: "Для якога курса (пуста = для ўсіх)", name: "event_course", widget: "select", options: ["I курс", "II курс", "III курс"], required: false }
+
+  - name: "announcements"
+    label: "Аб'явы для студэнтаў"
+    folder: "content/students/announcements"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} — {{title}}"
+    fields:
+      - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Загаловак", name: "title", widget: "string" }
+      - { label: "Тэкст", name: "body", widget: "markdown" }
+      - { label: "Тэг курса (пуста = для ўсіх)", name: "course_tag", widget: "select", options: ["I курс", "II курс", "III курс"], required: false }
+
+  - name: "library"
+    label: "Бібліятэка"
+    folder: "content/students/library"
+    create: true
+    summary: "{{title}} ({{category}})"
+    fields:
+      - { label: "Назва", name: "title", widget: "string" }
+      - label: "Катэгорыя"
+        name: "category"
+        widget: "select"
+        options: [{ label: "Агульныя матэрыялы", value: "general" }, { label: "Па прадметах", value: "subject" }]
+      - { label: "Прадмет (толькі для катэгорыі 'Па прадметах')", name: "subject", widget: "string", required: false }
+      - { label: "Падкатэгорыя", name: "subcategory", widget: "string", required: false, hint: "напр. 'Лекцыі' або 'Дадатковая літаратура'. Можна пакінуць пустым." }
+      - label: "Тып матэрыялу"
+        name: "material_type"
+        widget: "select"
+        options: [{ label: "Файл", value: "file" }, { label: "Спасылка", value: "link" }]
+      - { label: "Файл (для тыпу 'Файл')", name: "file", widget: "file", required: false }
+      - { label: "Спасылка (для тыпу 'Спасылка')", name: "url", widget: "string", required: false }
+
+# ============================================================
+# НАТАТКІ ПА НАЛАДЦЫ (не частка канфігурацыі Decap CMS)
+# ============================================================
+#
+# 1. backend.repo — увесці сапраўдны "уладальнік/назва-рэпазіторыя" пасля
+#    стварэння рэпазіторыя на GitHub.
+#
+# 2. Decap CMS з GitHub backend патрабуе OAuth-провайдар для ўвахода.
+#    Самы просты бясплатны варыянт — выкарыстаць гатовы OAuth-провайдар
+#    (напр. невялікую Cloudflare Worker-функцыю або готовы сэрвіс).
+#    Гэта АДЗІНАЕ месца ў праекце, дзе сапраўды трэба Cloudflare Worker —
+#    і ён бясплатны ў межах Workers Free plan.
+#
+# 3. Ужо існуючыя markdown-файлы з гэтай гутаркі (мтк-аб-каледжы.md,
+#    мтк-навучанне.md, мтк-абітурыентам.md, мтк-навіны.md) трэба будзе
+#    разбіць на палі гэтай канфігурацыі — тэкст ужо гатовы, патрэбна
+#    толькі перанесці яго ў адпаведныя файлы content/pages/*.md.
+#
+# 4. Радок "static/images/uploads" — стандартны шлях для статычных
+#    генератараў сайту (Eleventy, Hugo і т.п.). Калі будзе выбраны іншы
+#    генератар, шлях можа адрознівацца.
