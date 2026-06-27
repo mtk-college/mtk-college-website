@@ -2,7 +2,7 @@ backend:
   name: github
   repo: mtk-college/mtk-college-website
   branch: main
-  base_url: https://mtk-college-website.pages.dev
+  base_url: https://mtk-college.by
   auth_endpoint: api/auth
 
 media_folder: "static/images/uploads"
