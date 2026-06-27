@@ -305,6 +305,7 @@
     nav.primary.open{right:0;}
     .nav-toggle{display:block;}
     .programs-grid{grid-template-columns:1fr 1fr;}
+    nav.primary a.nav-students{margin-left:-16px;}
   }
   @media (max-width: 480px){
     .wrap{padding:0 20px;}
