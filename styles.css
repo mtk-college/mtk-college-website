@@ -307,7 +307,12 @@
     .programs-grid{grid-template-columns:1fr 1fr;}
   }
   @media (max-width: 480px){
-    .programs-grid{grid-template-columns:1fr;}
     .wrap{padding:0 20px;}
     .header-inner{padding:12px 20px;}
+    .programs-grid{gap:14px;}
+    .program-card{padding:20px 16px;}
+    .icon-ring{width:40px; height:40px; margin-bottom:12px;}
+  }
+  @media (max-width: 360px){
+    .programs-grid{grid-template-columns:1fr;}
   }
