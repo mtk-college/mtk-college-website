@@ -20,9 +20,10 @@
         <span class="l2">імя святога Яна Хрысціцеля</span>
       </span>
     </a>
-    <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav.primary').classList.toggle('open')">
+    <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav.primary').classList.toggle('open'); this.classList.toggle('open'); document.querySelector('.nav-backdrop').classList.toggle('open');">
       <span></span><span></span><span></span>
     </button>
+    <div class="nav-backdrop" onclick="document.querySelector('nav.primary').classList.remove('open'); document.querySelector('.nav-toggle').classList.remove('open'); this.classList.remove('open');"></div>
     <nav class="primary">
       <a href="about.html">Аб каледжы</a>
       <a href="programs.html">Навучанне</a>
@@ -60,7 +61,7 @@
 
 <section id="teasers">
   <div class="wrap">
-    <div class="programs-grid reveal" style="grid-template-columns:repeat(3,1fr);">
+    <div class="programs-grid reveal">
       <a href="about.html" class="program-card" style="display:block; text-decoration:none; color:inherit;">
         <div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bordeaux)" stroke-width="1.5"><path d="M12 3l8 4v2H4V7l8-4z"/><path d="M5 9v10M19 9v10M9 9v10M15 9v10"/><path d="M3 21h18"/></svg></div>
         <h3>Аб каледжы</h3>
@@ -138,7 +139,11 @@
 
 <script>
   const nav = document.querySelector('nav.primary');
-  document.querySelectorAll('nav.primary a').forEach(a=> a.addEventListener('click', ()=> nav.classList.remove('open')));
+  document.querySelectorAll('nav.primary a').forEach(a=> a.addEventListener('click', ()=>{
+    nav.classList.remove('open');
+    document.querySelector('.nav-toggle').classList.remove('open');
+    document.querySelector('.nav-backdrop').classList.remove('open');
+  }));
   const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }); }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=> observer.observe(el));
 

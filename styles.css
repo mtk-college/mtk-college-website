@@ -58,8 +58,13 @@
   nav.primary a.nav-students::after{display:none;}
   nav.primary a.nav-students:hover{background:var(--azure-deep2); color:var(--paper); border-color:var(--azure-deep2);}
 
-  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
-  .nav-toggle span{display:block; width:24px; height:2px; background:var(--ink); margin:5px 0;}
+  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px; position:relative; z-index:60;}
+  .nav-toggle span{display:block; width:24px; height:2px; background:var(--ink); margin:5px 0; transition:transform 0.25s ease, opacity 0.25s ease;}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .nav-backdrop{display:none; position:fixed; inset:0; background:rgba(16,39,66,0.45); z-index:45; opacity:0; transition:opacity 0.25s ease;}
+  .nav-backdrop.open{display:block; opacity:1;}
 
   /* ===== BUTTONS ===== */
   .btn{font-family:'PT Sans', sans-serif; font-size:14px; letter-spacing:0.02em; padding:14px 28px; border-radius:var(--r); display:inline-block; font-weight:700; transition:transform 0.2s, box-shadow 0.2s;}
@@ -296,7 +301,7 @@
     .footer-grid{grid-template-columns:1fr; gap:26px;}
   }
   @media (max-width: 920px){
-    nav.primary{position:fixed; top:0; right:-100%; height:100vh; width:78%; max-width:320px; background:var(--paper); flex-direction:column; padding:90px 28px; gap:22px; transition:right 0.3s ease; box-shadow:-10px 0 30px rgba(0,0,0,0.12);}
+    nav.primary{position:fixed; top:0; right:-100%; height:100vh; width:78%; max-width:320px; background:var(--paper); flex-direction:column; padding:90px 28px; gap:22px; transition:right 0.3s ease; box-shadow:-10px 0 30px rgba(0,0,0,0.12); z-index:50;}
     nav.primary.open{right:0;}
     .nav-toggle{display:block;}
     .programs-grid{grid-template-columns:1fr 1fr;}

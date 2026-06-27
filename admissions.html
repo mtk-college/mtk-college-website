@@ -20,9 +20,10 @@
         <span class="l2">імя святога Яна Хрысціцеля</span>
       </span>
     </a>
-    <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav.primary').classList.toggle('open')">
+    <button class="nav-toggle" aria-label="Меню" onclick="document.querySelector('nav.primary').classList.toggle('open'); this.classList.toggle('open'); document.querySelector('.nav-backdrop').classList.toggle('open');">
       <span></span><span></span><span></span>
     </button>
+    <div class="nav-backdrop" onclick="document.querySelector('nav.primary').classList.remove('open'); document.querySelector('.nav-toggle').classList.remove('open'); this.classList.remove('open');"></div>
     <nav class="primary">
       <a href="about.html">Аб каледжы</a>
       <a href="programs.html">Навучанне</a>
@@ -110,7 +111,11 @@
 
 <script>
   const nav = document.querySelector('nav.primary');
-  document.querySelectorAll('nav.primary a').forEach(a=> a.addEventListener('click', ()=> nav.classList.remove('open')));
+  document.querySelectorAll('nav.primary a').forEach(a=> a.addEventListener('click', ()=>{
+    nav.classList.remove('open');
+    document.querySelector('.nav-toggle').classList.remove('open');
+    document.querySelector('.nav-backdrop').classList.remove('open');
+  }));
   const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }); }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=> observer.observe(el));
 
