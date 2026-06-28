@@ -103,7 +103,7 @@
 
   /* ===== PROGRAMS ===== */
   .programs-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  .program-card{background:var(--paper); border:1px solid var(--paper-tint); border-radius:var(--r); padding:30px 24px; box-shadow:0 8px 20px rgba(27,54,84,0.06); transition:transform 0.2s, box-shadow 0.2s;}
+  .program-card{background:var(--paper); border:1px solid var(--paper-tint); border-radius:var(--r); padding:30px 24px; box-shadow:0 8px 20px rgba(27,54,84,0.06); transition:transform 0.2s, box-shadow 0.2s; min-width:0;}
   .program-card:hover{transform:translateY(-4px); box-shadow:0 14px 28px rgba(27,54,84,0.12);}
   .icon-ring{width:50px; height:50px; border-radius:50%; border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; margin-bottom:18px;}
   .icon-ring svg{width:23px; height:23px; color:var(--azure);}
