@@ -132,6 +132,14 @@
   .article-back:hover{color:var(--bordeaux);}
   .article-date{font-family:'PT Sans', sans-serif; font-weight:700; color:var(--gold); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-bottom:12px;}
   .article-photo{width:100%; max-height:420px; object-fit:cover; border-radius:var(--r); margin:28px 0; box-shadow:0 12px 28px rgba(27,54,84,0.1);}
+  .article-photo-caption{display:block; margin:-22px 0 28px; font-size:13px; color:var(--ink-soft); font-style:italic; text-align:center;}
+  .article-gallery{display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:10px; margin:32px 0;}
+  .article-gallery img{width:100%; height:90px; object-fit:cover; border-radius:8px; cursor:pointer; transition:opacity 0.2s;}
+  .article-gallery img:hover{opacity:0.8;}
+  .lightbox-overlay{display:none; position:fixed; inset:0; background:rgba(16,39,66,0.92); z-index:80; align-items:center; justify-content:center; padding:24px; cursor:zoom-out;}
+  .lightbox-overlay.open{display:flex;}
+  .lightbox-overlay img{max-width:100%; max-height:90vh; border-radius:8px; box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+  .lightbox-close{position:absolute; top:20px; right:28px; color:var(--paper); font-size:32px; cursor:pointer; line-height:1;}
   .article-body{max-width:740px; font-size:17px; line-height:1.85; color:var(--ink-soft);}
   .article-body p{margin-bottom:20px;}
   .article-body a{color:var(--bordeaux); text-decoration:underline;}
