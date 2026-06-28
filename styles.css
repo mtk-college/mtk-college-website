@@ -211,6 +211,8 @@
   .announcement-item h4{color:var(--paper); font-family:'Old Standard TT', serif; font-size:15px; margin:0 0 6px;}
   .announcement-item p{color:rgba(250,247,240,0.7); font-size:13.5px; margin:0; line-height:1.5;}
   .show-more-btn{margin-top:16px; font-family:'PT Sans', sans-serif; font-size:13px; font-weight:700; padding:8px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:transparent; color:rgba(250,247,240,0.85); cursor:pointer;}
+  #news-more{border:1px solid var(--paper-tint); color:var(--ink-soft); background:var(--paper);}
+  #news-more:hover{border-color:var(--bordeaux); color:var(--bordeaux);}
   .show-more-btn:hover{border-color:var(--gold); color:var(--gold);}
   .curator-list{display:flex; flex-direction:column; gap:14px;}
   .curator-item{padding-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.1);}

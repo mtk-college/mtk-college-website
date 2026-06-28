@@ -41,8 +41,8 @@
       <div class="eyebrow">Навіны</div>
       <h2>Навіны і падзеі</h2>
     </div>
-    <div class="news-list reveal">
-      <a href="/news/nabor-2026.html" class="news-item">
+    <div class="news-list reveal" id="news-list">
+      <a href="/news/nabor-2026.html" class="news-item" data-index="0">
         <div class="news-body">
           <span class="news-date">25 чэрвеня 2026</span>
           <h3>Стартуе набор на 2026/2027 навучальны год</h3>
@@ -50,7 +50,7 @@
           <span class="news-read-more">Чытаць далей →</span>
         </div>
       </a>
-      <a href="/news/vypusk-2026.html" class="news-item">
+      <a href="/news/vypusk-2026.html" class="news-item" data-index="1">
         <img class="news-thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNzYiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMTc2IDEyOCI+CjxyZWN0IHdpZHRoPSIxNzYiIGhlaWdodD0iMTI4IiBmaWxsPSIjMTAyNzQyIi8+CjxjaXJjbGUgY3g9Ijg4IiBjeT0iNTAiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiNhZThhM2QiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNNDAgMTAwIFE4OCA3MCAxMzYgMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNhZThhM2QiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=" alt="">
         <div class="news-body">
           <span class="news-date">20 чэрвеня 2026</span>
@@ -60,6 +60,25 @@
         </div>
       </a>
     </div>
+    <button class="show-more-btn" id="news-more">Паказаць больш</button>
+    <script>
+      (function(){
+        const items = Array.from(document.querySelectorAll('#news-list .news-item[data-index]'));
+        const btn = document.getElementById('news-more');
+        const pageSize = 6;
+        let shown = pageSize;
+
+        function render(){
+          items.forEach(it=>{
+            const i = parseInt(it.dataset.index, 10);
+            it.style.display = i < shown ? '' : 'none';
+          });
+          btn.style.display = shown >= items.length ? 'none' : '';
+        }
+        btn.addEventListener('click', ()=>{ shown += pageSize; render(); });
+        render();
+      })();
+    </script>
   </div>
 </section>
 
