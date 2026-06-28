@@ -71,7 +71,7 @@ collections:
             hint: "Гэты блок патрабуе абнаўлення штогод — даты новага набору"
             fields:
               - { label: "Тэкст пра рэгістрацыю", name: "registration_dates", widget: "string", hint: "напр. '25 чэрвеня — 20 жніўня 2026'" }
-              - { label: "Тэкст пра экзамен", name: "exam_date", widget: "string", hint: "напр. '22 жніўня 2026, 10.00'" }
+              - { label: "Тэкст пра экзамен", name: "exam_date", widget: "string", hint: "напр. '22 жніўня 2026, 10:00'" }
           - label: "Крокі паступлення"
             name: "steps"
             widget: "list"
