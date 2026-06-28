@@ -81,7 +81,6 @@ collections:
             widget: "list"
             field: { label: "Дакумент", name: "item", widget: "string" }
           - { label: "Апісанне ўступнага экзамену", name: "exam_info", widget: "markdown" }
-          - { label: "Нататка пра тэрміны", name: "timing_note", widget: "text", required: false }
           - { label: "Спасылка на онлайн-рэгістрацыю (бягучы год)", name: "registration_url", widget: "string", required: false, hint: "Абнаўляецца штогод. Канкрэтныя даты набору публікуюцца ў Навінах, не тут." }
 
       - name: "contacts"
