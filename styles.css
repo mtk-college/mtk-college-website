@@ -260,6 +260,12 @@
   .info-card li{display:flex; gap:10px; font-size:15px; color:var(--ink-soft); line-height:1.5;}
   .info-card li::before{content:"—"; color:var(--gold); flex-shrink:0;}
   .info-note{margin-top:24px; font-size:14.5px; color:var(--ink-soft); background:var(--paper-tint); border-radius:var(--r); padding:16px 20px;}
+  .current-intake{background:linear-gradient(135deg, var(--bordeaux), #8f2e3c); border-radius:var(--r); padding:28px 30px; margin-bottom:32px; box-shadow:0 12px 28px rgba(122,37,48,0.22);}
+  .current-intake h3{color:var(--paper); margin-bottom:10px;}
+  .current-intake p{color:rgba(250,247,240,0.9); font-size:15.5px; line-height:1.6;}
+  .current-intake strong{color:var(--paper);}
+  .current-intake .btn-primary{background:var(--paper); color:var(--bordeaux);}
+  .current-intake .btn-primary:hover{background:var(--gold); color:var(--azure-deep2);}
   @media (max-width: 800px){ .admissions-grid{grid-template-columns:1fr;} .contacts-grid{grid-template-columns:1fr;} }
 
   .cta-band{position:relative; background:var(--azure-deep2); color:var(--paper); text-align:center; padding:88px 0; overflow:hidden;}
