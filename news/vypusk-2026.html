@@ -64,18 +64,45 @@
 
     <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
       <span class="lightbox-close">&times;</span>
-      <img id="lightbox-img" src="" alt="">
+      <button class="lightbox-nav lightbox-prev" onclick="prevImage(event)">‹</button>
+      <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+      <button class="lightbox-nav lightbox-next" onclick="nextImage(event)">›</button>
     </div>
   </div>
 </section>
 <script>
+  let galleryImages = [];
+  let currentIndex = 0;
+
   function openLightbox(src){
-    document.getElementById('lightbox-img').src = src;
+    galleryImages = Array.from(document.querySelectorAll('#gallery img')).map(img => img.src);
+    currentIndex = galleryImages.indexOf(src);
+    showLightboxImage();
     document.getElementById('lightbox').classList.add('open');
+  }
+  function showLightboxImage(){
+    document.getElementById('lightbox-img').src = galleryImages[currentIndex];
   }
   function closeLightbox(){
     document.getElementById('lightbox').classList.remove('open');
   }
+  function nextImage(e){
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    showLightboxImage();
+  }
+  function prevImage(e){
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    showLightboxImage();
+  }
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'ArrowRight') nextImage(e);
+    if(e.key === 'ArrowLeft') prevImage(e);
+    if(e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 <footer class="site-footer" id="contacts">
