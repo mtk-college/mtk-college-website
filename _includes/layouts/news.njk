@@ -10,7 +10,9 @@ layout: base.njk
     <div class="news-list reveal" id="news-list">
       {% for item in collections.news %}
       <a href="{{ item.url }}" class="news-item" data-index="{{ loop.index0 }}">
-        {% if item.data.thumbnail %}
+        {% if item.data.photo %}
+        <img class="news-thumb" src="{{ item.data.photo }}" alt="">
+        {% elif item.data.thumbnail %}
         <img class="news-thumb" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNzYiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMTc2IDEyOCI+CjxyZWN0IHdpZHRoPSIxNzYiIGhlaWdodD0iMTI4IiBmaWxsPSIjMTAyNzQyIi8+CjxjaXJjbGUgY3g9Ijg4IiBjeT0iNTAiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiNhZThhM2QiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNNDAgMTAwIFE4OCA3MCAxMzYgMTAwIiBmaWxsPSJub25lIiBzdHJva2U9IiNhZThhM2QiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=" alt="">
         {% endif %}
         <div class="news-body">
