@@ -15,6 +15,24 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("splitParagraphs", (str) => (str || "").split("\n\n"));
   eleventyConfig.addFilter("splitPipe", (str) => (str || "").split("|"));
 
+  // Для карткі ў спісе навін: бярэ поле excerpt, калі яно задана.
+  // Калі excerpt пустое (напр. старая навіна праз CMS без гэтага поля),
+  // абразае звычайны тэкст артыкула (body) да ~140 знакаў па межы слова,
+  // прыбраўшы markdown-разметку, каб карткі без excerpt не заставаліся
+  // без тэксту пад загалоўкам.
+  eleventyConfig.addFilter("newsExcerpt", (excerpt, body) => {
+    if (excerpt) return excerpt;
+    const plain = (body || "")
+      .replace(/!\[.*?\]\(.*?\)/g, "")
+      .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+      .replace(/[*_#>`]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (plain.length <= 140) return plain;
+    const cut = plain.slice(0, 140);
+    return cut.slice(0, cut.lastIndexOf(" ")) + "…";
+  });
+
   // Фарматаванне даты ў беларускім стылі: "25 чэрвеня 2026"
   const belarusianMonths = [
     "студзеня", "лютага", "сакавіка", "красавіка", "мая", "чэрвеня",
