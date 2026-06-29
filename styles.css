@@ -88,11 +88,6 @@
 
   /* ===== SECTION ===== */
   section{padding:84px 0;}
-  #about{padding:48px 0;}
-  #values{padding:48px 0;}
-  #quote{padding:48px 0;}
-  #teasers{padding:48px 0;}
-  #latest-news{padding:48px 0;}
   .tint{background:var(--paper-tint);}
   .section-head{max-width:620px; margin-bottom:46px;}
   .section-head h2{font-size:clamp(26px,3vw,33px); margin-top:14px;}
