@@ -18,7 +18,7 @@ layout: base.njk
         <div class="news-body">
           <span class="news-date">{{ item.data.date | readableDate }}</span>
           <h3>{{ item.data.title }}</h3>
-          <p>{{ item.data.excerpt }}</p>
+          <p>{{ item.data.excerpt | newsExcerpt(item.data.body) }}</p>
           <span class="news-read-more">Чытаць далей →</span>
         </div>
       </a>
