@@ -121,9 +121,9 @@
 
   /* ===== NEWS ===== */
   .news-list{max-width:760px; display:flex; flex-direction:column; gap:24px;}
-  .news-list{display:grid; grid-template-columns:repeat(2, 1fr); gap:28px; align-items:start;}
-  @media (max-width: 720px){ .news-list{grid-template-columns:1fr;} }
-  .news-item{display:flex; flex-direction:column; background:var(--paper); border-radius:var(--r); overflow:hidden; box-shadow:0 6px 16px rgba(27,54,84,0.06); text-decoration:none; color:inherit; transition:transform 0.2s, box-shadow 0.2s;}
+  .news-list{column-count:2; column-gap:28px;}
+  @media (max-width: 720px){ .news-list{column-count:1;} }
+  .news-item{display:flex; flex-direction:column; background:var(--paper); border-radius:var(--r); overflow:hidden; box-shadow:0 6px 16px rgba(27,54,84,0.06); text-decoration:none; color:inherit; transition:transform 0.2s, box-shadow 0.2s; break-inside:avoid; margin-bottom:28px;}
   .news-item:hover{transform:translateY(-3px); box-shadow:0 12px 26px rgba(27,54,84,0.12);}
   .news-thumb{width:100%; height:auto; display:block;}
   .news-body{padding:20px 26px;}
