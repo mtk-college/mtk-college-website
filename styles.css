@@ -132,7 +132,7 @@
   .article-back{display:inline-block; margin-bottom:28px; font-family:'PT Sans', sans-serif; font-size:13.5px; font-weight:700; color:var(--ink-soft);}
   .article-back:hover{color:var(--bordeaux);}
   .article-date{font-family:'PT Sans', sans-serif; font-weight:700; color:var(--gold); font-size:13px; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-bottom:12px;}
-  .article-photo{width:100%; max-height:420px; object-fit:cover; border-radius:var(--r); margin:28px 0; box-shadow:0 12px 28px rgba(27,54,84,0.1);}
+  .article-photo{width:100%; height:auto; border-radius:var(--r); margin:28px 0; box-shadow:0 12px 28px rgba(27,54,84,0.1);}
   .article-photo-caption{display:block; margin:-22px 0 28px; font-size:13px; color:var(--ink-soft); font-style:italic; text-align:center;}
   .article-gallery{display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:10px; margin:32px 0;}
   .article-gallery img{width:100%; height:90px; object-fit:cover; border-radius:8px; cursor:pointer; transition:opacity 0.2s;}
