@@ -88,6 +88,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "styles.css": "styles.css" });
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
   eleventyConfig.addPassthroughCopy({ "images": "images" });
+  eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
+
+  // Сцяг для часовага закрыцця сайта (юрыдычныя пытанні з рэгістрацыяй).
+  // Калі true — на ўсе старонкі дадаецца <meta name="robots" content="noindex, nofollow">.
+  // Пасля вырашэння пытання проста пастаўце false і перазалейце сайт.
+  eleventyConfig.addGlobalData("siteClosed", () => true);
 
   // Калекцыі — групы файлаў з content/, якія можна перабіраць у шаблонах
   // праз {% for teacher in collections.teachers %} і г.д.
