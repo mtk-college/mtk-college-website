@@ -89,6 +89,11 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
   eleventyConfig.addPassthroughCopy({ "images": "images" });
   eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
+  // Decap CMS захоўвае загружаныя праз форму малюнкі ў static/images/uploads
+  // (гл. media_folder у admin/config.yml), а на сайце яны павінны быць
+  // даступныя як /images/uploads/... (гл. public_folder) — гэты passthrough
+  // капіюе іх у патрэбнае месца пры зборцы.
+  eleventyConfig.addPassthroughCopy({ "static/images/uploads": "images/uploads" });
 
   // Сцяг для часовага закрыцця сайта (юрыдычныя пытанні з рэгістрацыяй).
   // Калі true — на ўсе старонкі дадаецца <meta name="robots" content="noindex, nofollow">.
