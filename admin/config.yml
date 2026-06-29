@@ -130,6 +130,7 @@ collections:
       - { label: "Дата публікацыі", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
       - { label: "Загаловак", name: "title", widget: "string" }
       - { label: "Кароткая спасылка (лацінкай, праз злучок, напр. nabor-2027)", name: "url_slug", widget: "string", hint: "Будзе выкарыстана для адрасу старонкі: /news/гэта-значэнне.html. Пішыце лацінскімі літарамі праз злучок, без прабелаў і косых рысак." }
+      - { label: "Кароткі анонс (паказваецца ў спісе навін, пад загалоўкам)", name: "excerpt", widget: "text", hint: "1-2 кароткія сказы. Будзе бачны на старонцы са спісам усіх навін, да адкрыцця артыкула." }
       - { label: "Тэкст", name: "body", widget: "markdown" }
       - { label: "Фота", name: "photo", widget: "image", required: false }
 
