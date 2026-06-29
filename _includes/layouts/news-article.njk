@@ -14,10 +14,16 @@ layout: base.njk
     <img class="article-photo reveal" src="{{ photo.src }}" alt="">
     {% if photo.caption %}<span class="article-photo-caption">{{ photo.caption }}</span>{% endif %}
     {% endfor %}
+    {% elif photo %}
+    <img class="article-photo reveal" src="{{ photo }}" alt="">
     {% endif %}
 
     <div class="article-body reveal" style="margin-top:32px;">
-      {{ body | markdown | safe }}
+      {% if content | length > 0 %}
+        {{ content | safe }}
+      {% else %}
+        {{ body | markdown | safe }}
+      {% endif %}
     </div>
 
     {% if gallery %}
