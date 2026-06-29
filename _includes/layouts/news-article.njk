@@ -1,0 +1,75 @@
+---
+layout: base.njk
+---
+<section id="article">
+  <div class="wrap">
+    <a href="/news.html" class="article-back reveal">← Усе навіны</a>
+    <div class="section-head reveal" style="margin-bottom:0;">
+      <span class="article-date">{{ date | readableDate }}</span>
+      <h2>{{ title }}</h2>
+    </div>
+
+    {% if photos %}
+    {% for photo in photos %}
+    <img class="article-photo reveal" src="{{ photo.src }}" alt="">
+    {% if photo.caption %}<span class="article-photo-caption">{{ photo.caption }}</span>{% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <div class="article-body reveal" style="margin-top:32px;">
+      {{ body | markdown | safe }}
+    </div>
+
+    {% if gallery %}
+    <div class="article-gallery reveal" id="gallery">
+      {% for photo in gallery %}
+      <img src="{{ photo.src }}" alt="Фота {{ loop.index }}" onclick="openLightbox(this.src)">
+      {% endfor %}
+    </div>
+
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+      <span class="lightbox-close">&times;</span>
+      <button class="lightbox-nav lightbox-prev" onclick="prevImage(event)">‹</button>
+      <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+      <button class="lightbox-nav lightbox-next" onclick="nextImage(event)">›</button>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% if gallery %}
+<script>
+  let galleryImages = [];
+  let currentIndex = 0;
+
+  function openLightbox(src){
+    galleryImages = Array.from(document.querySelectorAll('#gallery img')).map(img => img.src);
+    currentIndex = galleryImages.indexOf(src);
+    showLightboxImage();
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function showLightboxImage(){
+    document.getElementById('lightbox-img').src = galleryImages[currentIndex];
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  function nextImage(e){
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    showLightboxImage();
+  }
+  function prevImage(e){
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    showLightboxImage();
+  }
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'ArrowRight') nextImage(e);
+    if(e.key === 'ArrowLeft') prevImage(e);
+    if(e.key === 'Escape') closeLightbox();
+  });
+</script>
+{% endif %}

@@ -1,4 +1,7 @@
 ---
+layout: layouts/contacts.njk
+permalink: /contacts.html
+title: Кантакты — Мінскі тэалагічны каледж імя святога Яна Хрысціцеля
 address: Касцёл Святога Духа, г. Мінск, праезд Галадзеда, 15В
 phone: +375 (29) 616-08-72
 email: kaledzminsk@gmail.com

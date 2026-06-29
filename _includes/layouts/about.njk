@@ -1,0 +1,47 @@
+---
+layout: base.njk
+---
+<section id="about" class="tint">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Аб каледжы</div>
+      <h2>Традыцыя, якая працягваецца</h2>
+    </div>
+    <p class="lettrine reveal">
+      <span class="cap">{{ mission_text | firstChar }}</span>{{ mission_text | restChars }}
+    </p>
+    <div class="reveal" style="max-width:740px; margin-top:36px;">
+      <span class="subtag">Гісторыя</span>
+      {% for paragraph in history_text | splitParagraphs %}
+      <p style="color:var(--ink-soft); font-size:16px; margin-bottom:14px;">{{ paragraph }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="values" class="tint">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Чаму у нас</div>
+      <h2>Тры рэчы, на якіх мы стаім</h2>
+    </div>
+    <div class="values-row reveal">
+      {% for value in values %}
+      <div class="value-col">
+        <h3>{{ value.title }}</h3>
+        <p>{{ value.text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="quote" class="tint">
+  <div class="wrap quote-wrap reveal">
+    <blockquote>
+      «{{ (quote_text | splitPipe)[0] }}<br>
+      "{{ (quote_text | splitPipe)[1] }}"».
+    </blockquote>
+    <cite>{{ quote_source }}</cite>
+  </div>
+</section>

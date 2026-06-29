@@ -1,0 +1,24 @@
+---
+layout: base.njk
+---
+<section id="contacts-main">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Кантакты</div>
+      <h2>Як з намі звязацца</h2>
+    </div>
+    <div class="contacts-grid reveal">
+      <div>
+        <p style="font-size:17px; line-height:1.8; color:var(--ink-soft);">
+          Адрас: {{ address }}<br>
+          Тэлефон: <a href="tel:{{ phone | replace(' ', '') | replace('(', '') | replace(')', '') | replace('-', '') }}">{{ phone }}</a><br>
+          E-mail: <a href="mailto:{{ email }}">{{ email }}</a>
+        </p>
+        <p style="margin-top:24px; font-size:15px; color:var(--ink-soft);">{{ address_note }} Падрабязнасці паступлення — у раздзеле «Абітурыентам».</p>
+      </div>
+      <div class="footer-map" style="margin-bottom:0;">
+        <iframe src="https://maps.google.com/maps?q={{ map_lat }},{{ map_lng }}&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Адрас каледжа на карце"></iframe>
+      </div>
+    </div>
+  </div>
+</section>

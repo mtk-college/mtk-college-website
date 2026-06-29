@@ -1,0 +1,230 @@
+---
+layout: base.njk
+---
+<section id="students" class="students-section">
+  <div class="wrap">
+    <div class="students-banner">🔒 Гэты раздзел даступны толькі студэнтам каледжа пасля ўводу пароля.</div>
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color:var(--gold);">Закрыты раздзел</div>
+      <h2 style="color:var(--paper);">Студэнтам</h2>
+    </div>
+
+    <div class="student-card" style="margin-bottom:24px;">
+      <h3>Расклад заняткаў</h3>
+      <div class="course-tabs" id="course-tabs">
+        <button class="course-tab active" data-course="1">I курс</button>
+        <button class="course-tab" data-course="2">II курс</button>
+        <button class="course-tab" data-course="3">III курс</button>
+      </div>
+      <p class="schedule-status" style="margin-bottom:14px; display:block;">Прадметы публікуюцца за тыдзень да заняткаў. Даты на год вядомыя загадзя.</p>
+
+      <div class="schedule-pager">
+        <button class="pager-btn" id="pager-prev">← Папярэднія</button>
+        <button class="pager-btn" id="pager-next">Наступныя →</button>
+      </div>
+
+      {% for day in collections.schedule %}
+      <div class="schedule-day" data-index="{{ loop.index0 }}">
+        {% if day.data.type == "event" %}
+        <div class="schedule-day-head"><strong>{{ day.data.date | readableDate }}</strong></div>
+        <ul class="schedule-slots">
+          <li class="event-row">
+            <span class="slot-time">{{ day.data.event_time or "удакладн." }}</span>
+            <span class="event-label">{{ day.data.event_title }}{% if day.data.event_description %} — {{ day.data.event_description }}{% endif %}</span>
+          </li>
+        </ul>
+        {% elif day.data.celebrant %}
+        <div class="schedule-day-head"><strong>{{ day.data.date | readableDate }}</strong></div>
+        <ul class="schedule-slots">
+          <li class="event-row mass-row">
+            <span class="slot-time">08:15–08:50</span>
+            <span class="event-label">{{ day.data.celebrant }}</span>
+          </li>
+          {% for slot in day.data.courses | scheduleSlots %}
+          <li><span class="slot-time">{{ slot.time }}</span>
+            {% for val in slot.values %}
+            {% if val %}
+            <span class="slot-subject" data-course="{{ loop.index }}">{{ val }}</span>
+            {% else %}
+            <span class="slot-subject slot-empty" data-course="{{ loop.index }}">няма заняткаў</span>
+            {% endif %}
+            {% endfor %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <div class="schedule-day-head"><strong>{{ day.data.date | readableDate }}</strong><span class="schedule-status">расклад будзе апублікаваны за тыдзень</span></div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="student-card" style="margin-bottom:24px;">
+      <h3>Аб'явы для студэнтаў</h3>
+      <div class="announcement-list">
+        {% for item in collections.announcements %}
+        <div class="announcement-item" data-index="{{ loop.index0 }}"{% if item.data.course_tag %} data-course="{{ item.data.course_tag | courseTagToNumber }}"{% endif %}{% if loop.index0 >= 3 %} style="display:none;"{% endif %}>
+          <div class="announcement-head">
+            <span class="announcement-date">{{ item.data.date | shortDate }}</span>
+            {% if item.data.course_tag %}<span class="announcement-badge">{{ item.data.course_tag }}</span>{% endif %}
+          </div>
+          <h4>{{ item.data.title }}</h4>
+          <p>{{ item.data.body }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="show-more-btn" id="announcements-more">Паказаць больш</button>
+    </div>
+
+    <div class="student-card" style="margin-bottom:24px;">
+      <h3>Бібліятэка</h3>
+      <div class="library-search">
+        <input type="text" id="library-search" placeholder="Пошук па назве файла або прадмеце…">
+      </div>
+      <div class="library-cat">
+        <h4>Агульныя матэрыялы</h4>
+        {% for item in collections.library | libraryGeneral %}
+        <div class="library-item" data-search="{{ item.title | lower }} агульныя матэрыялы">
+          <span class="lib-icon">{% if item.material_type == "file" %}📄{% else %}🔗{% endif %}</span>
+          <a href="{{ item.url or '#' }}">{{ item.title }}</a>
+          <span class="lib-meta">{% if item.material_type == "file" %}файл{% else %}спасылка{% endif %}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="library-cat">
+        <h4>Матэрыялы па прадметах</h4>
+        <div id="library-accordion">
+          {% set subjectGroups = collections.library | libraryBySubject %}
+          {% for subjectName, group in subjectGroups %}
+          <div class="accordion-group" data-subject="{{ subjectName | lower }}">
+            <button class="accordion-toggle">{{ subjectName }} <span class="accordion-arrow">▾</span></button>
+            <div class="accordion-content">
+              {% for subcatName, subcatItems in group.subcats %}
+              <div class="library-subcat">
+                <h6>{{ subcatName }}</h6>
+                {% for item in subcatItems %}
+                <div class="library-item" data-search="{{ item.title | lower }} {{ subjectName | lower }}">
+                  <span class="lib-icon">{% if item.material_type == "file" %}📄{% else %}🔗{% endif %}</span>
+                  <a href="{{ item.url or '#' }}">{{ item.title }}</a>
+                  <span class="lib-meta">{% if item.material_type == "file" %}файл{% else %}спасылка{% endif %}</span>
+                </div>
+                {% endfor %}
+              </div>
+              {% endfor %}
+              {% for item in group.plain %}
+              <div class="library-item" data-search="{{ item.title | lower }} {{ subjectName | lower }}">
+                <span class="lib-icon">{% if item.material_type == "file" %}📄{% else %}🔗{% endif %}</span>
+                <a href="{{ item.url or '#' }}">{{ item.title }}</a>
+                <span class="lib-meta">{% if item.material_type == "file" %}файл{% else %}спасылка{% endif %}</span>
+              </div>
+              {% endfor %}
+              {% if not group.plain.length and group.subcats | objectKeysCount == 0 %}
+              <p class="library-empty-note">матэрыялаў пакуль няма</p>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <p id="library-no-results" style="display:none; font-size:13px; color:rgba(250,247,240,0.45); font-style:italic; margin-top:10px;">Нічога не знойдзена.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  (function(){
+    const STORAGE_KEY = 'mtk-course';
+    const tabs = document.querySelectorAll('#course-tabs .course-tab');
+
+    function setCourse(course){
+      tabs.forEach(b=> b.classList.toggle('active', b.dataset.course === course));
+      document.body.className = document.body.className.replace(/course-\d/, '').trim();
+      document.body.classList.add('course-' + course);
+      try{ localStorage.setItem(STORAGE_KEY, course); }catch(e){}
+    }
+
+    let saved = null;
+    try{ saved = localStorage.getItem(STORAGE_KEY); }catch(e){}
+    if(saved){ setCourse(saved); }
+
+    tabs.forEach(btn=>{
+      btn.addEventListener('click', ()=> setCourse(btn.dataset.course));
+    });
+  })();
+
+  (function(){
+    const items = Array.from(document.querySelectorAll('.announcement-item[data-index]'));
+    const btn = document.getElementById('announcements-more');
+    const pageSize = 3;
+    let shown = pageSize;
+
+    function render(){
+      items.forEach(it=>{
+        const i = parseInt(it.dataset.index, 10);
+        it.style.display = i < shown ? '' : 'none';
+      });
+      btn.style.display = shown >= items.length ? 'none' : '';
+    }
+    btn.addEventListener('click', ()=>{ shown += pageSize; render(); });
+    render();
+  })();
+
+  (function(){
+    const accordionGroups = Array.from(document.querySelectorAll('#library-accordion .accordion-group'));
+    accordionGroups.forEach(group=>{
+      const toggle = group.querySelector('.accordion-toggle');
+      toggle.addEventListener('click', ()=> group.classList.toggle('open'));
+    });
+
+    const searchInput = document.getElementById('library-search');
+    const generalItems = Array.from(document.querySelectorAll('.library-cat .library-item'));
+    const noResults = document.getElementById('library-no-results');
+
+    searchInput.addEventListener('input', ()=>{
+      const q = searchInput.value.trim().toLowerCase();
+      let anyMatch = false;
+
+      generalItems.forEach(item=>{
+        const match = !q || (item.dataset.search || '').includes(q);
+        item.style.display = match ? '' : 'none';
+        if(match) anyMatch = true;
+      });
+
+      accordionGroups.forEach(group=>{
+        const subjectMatch = !q || group.dataset.subject.includes(q);
+        const items = Array.from(group.querySelectorAll('.library-item'));
+        let groupHasMatch = subjectMatch;
+        items.forEach(item=>{
+          const match = !q || subjectMatch || (item.dataset.search || '').includes(q);
+          item.style.display = match ? '' : 'none';
+          if(match) groupHasMatch = true;
+        });
+        group.style.display = groupHasMatch ? '' : 'none';
+        if(q && groupHasMatch){ group.classList.add('open'); anyMatch = true; }
+        else if(!q){ group.classList.remove('open'); }
+      });
+
+      noResults.style.display = (q && !anyMatch) ? '' : 'none';
+    });
+  })();
+
+  (function(){
+    const days = Array.from(document.querySelectorAll('.schedule-day[data-index]'));
+    const total = days.length;
+    const pageSize = 2;
+    let start = 2;
+    const prevBtn = document.getElementById('pager-prev');
+    const nextBtn = document.getElementById('pager-next');
+
+    function render(){
+      days.forEach(d=>{
+        const i = parseInt(d.dataset.index, 10);
+        d.style.display = (i >= start && i < start + pageSize) ? '' : 'none';
+      });
+      prevBtn.disabled = start <= 0;
+      nextBtn.disabled = start + pageSize >= total;
+    }
+    prevBtn.addEventListener('click', ()=>{ start = Math.max(0, start - pageSize); render(); });
+    nextBtn.addEventListener('click', ()=>{ start = Math.min(total - pageSize, start + pageSize); render(); });
+    render();
+  })();
+</script>

@@ -1,0 +1,15 @@
+{
+  "name": "mtk-college-website",
+  "version": "1.0.0",
+  "description": "Сайт Мінскага тэалагічнага каледжа імя святога Яна Хрысціцеля",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "watch": "eleventy --watch"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "markdown-it": "^14.1.0"
+  },
+  "license": "ISC"
+}
