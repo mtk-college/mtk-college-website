@@ -124,11 +124,12 @@ collections:
     label: "Навіны"
     folder: "content/news"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.url_slug}}"
     summary: "{{date}} — {{title}}"
     fields:
       - { label: "Дата публікацыі", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
       - { label: "Загаловак", name: "title", widget: "string" }
+      - { label: "Кароткая спасылка (лацінкай, праз злучок, напр. nabor-2027)", name: "url_slug", widget: "string", hint: "Будзе выкарыстана для адрасу старонкі: /news/гэта-значэнне.html. Пішыце лацінскімі літарамі праз злучок, без прабелаў і косых рысак." }
       - { label: "Тэкст", name: "body", widget: "markdown" }
       - { label: "Фота", name: "photo", widget: "image", required: false }
 
