@@ -87,6 +87,7 @@ module.exports = function (eleventyConfig) {
   // без апрацоўкі (CSS, малюнкі для CMS, увесь раздзел admin/)
   eleventyConfig.addPassthroughCopy({ "styles.css": "styles.css" });
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
+  eleventyConfig.addPassthroughCopy({ "images": "images" });
 
   // Калекцыі — групы файлаў з content/, якія можна перабіраць у шаблонах
   // праз {% for teacher in collections.teachers %} і г.д.
